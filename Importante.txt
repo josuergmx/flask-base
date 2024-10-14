@@ -86,3 +86,12 @@ git commit -m "first commit"
 git branch -M main
 git remote add origin git@github.com:josuergmx/flask-base.git
 git push -u origin main
+
+git tag v0.1
+git push --tags
+
+--Seguir la guia para crear la llave ssh y activar al agente
+https://docs.github.com/en/authentication/troubleshooting-ssh/error-permission-denied-publickey
+
+--Crear una cuenta en github e ir a https://github.com/settings/keys
+agregar la llave publica que se genero previamente
