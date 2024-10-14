@@ -1,0 +1,88 @@
+
+-- Instalar la version 3 de python
+
+-- Instalat visual Studio Code
+
+-- Varificar que este instalado pip3
+
+-- Instalar un virtual environment con venv
+pip3 install virtualenv
+
+python3 -m /path/to/new/virtual/environment
+
+--Activacion del virtual environment
+Linux y Mac:  source nombreAsignado/bin/activate
+Windows: nombreAsignado\Scripts\activate
+
+--Crear la carpeta del proyecto
+Dentro del nombreAsignado crear la carpeta del proyecto /CarpetaProyecto
+
+--Creacion del proyecto flask
+Pagina oficial flask: https://flask.palletsprojects.com/
+Ya dentro de la carpeta crada para el proyecto usar el comando:  pip3 install flask
+Para desinstalarlo seria: pip3 uninstall flask
+
+--Para saber las dependencias que se instalaron
+pip3 freeze
+
+
+--Crear nuestro primer hola Mundo:
+Crear un archivo llamado "main.py" y dentro crear el siguiente codigo:
+
+from flask import flask
+app = Flask(__name__)
+
+@app.route('/')
+def hello_world() -> str:
+    return 'Hello Flask!!'
+
+if __name__ == '__main__':
+    app.run()
+
+-- Agregar extensiones a Visual Studio Code
+agregar: python 
+
+--Agregar el interprete a VSC
+ctrl + shift + p :  python: select interpreter
+se debe buscar el ejecutable de python de la carpeta donde se instalo el virtual environment
+
+--Activar el modo de configuracionpara el proyecto
+crear archivo llamado config.py dentro poner:
+
+class Config(object):
+    pass
+
+class ProdConfig(Config):
+    pass
+
+class DevConfig(Config):
+    DEBUG = True
+
+y en el archivo main.py se hace la referencia a la clase de la configuracion
+from config import DevConfig 
+
+--Modularizar el proyecto, para hacer sostenible el crecimiento de archivos, carpetas, controladores, ejecutable
+
+-my_app/
+-run.py
+    -task/
+        -__init__.py
+        - crud/
+            - __init__.py
+            -controllers.py
+        - web/
+            - __init__.py
+            -controllers.py
+
+        - api/
+            - __init__.py
+            -controllers.py
+
+
+--Cfrear un repositorio en github
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin git@github.com:josuergmx/flask-base.git
+git push -u origin main
