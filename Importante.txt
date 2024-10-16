@@ -3,6 +3,9 @@
 
 -- Instalat visual Studio Code
 
+https://www.datasource.ai/es/data-science-articles/las-10-mejores-extensiones-de-python-para-visual-studio-code
+https://ed.team/blog/las-7-mejores-extensiones-para-comenzar-con-vscode
+
 -- Varificar que este instalado pip3
 
 -- Instalar un virtual environment con venv
@@ -95,3 +98,20 @@ https://docs.github.com/en/authentication/troubleshooting-ssh/error-permission-d
 
 --Crear una cuenta en github e ir a https://github.com/settings/keys
 agregar la llave publica que se genero previamente
+
+
+git init
+
+
+-- Subir cambios al repositorio de github
+git add .
+git commit -m "Templates con Jinja"
+git push
+git tag
+git tag v0.2
+git push --tags
+
+
+
+--Iniciar la aplicacion de flask
+python3 run.py

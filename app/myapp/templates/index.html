@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1> Template example </h1>
+    <p> Hello Flask </p>
+
+    {% if True %}
+        <p>{{ name }}</p>
+    {% else %}
+        <p>Sin datos</p>
+    {%endif%}
+
+    <h1> Bucle de control</h1>
+    <ul>
+        {% for i in [1,2,3,4,5,6,7,8,9,10]%}
+            <li>{{ i }}</li>
+        {%endfor%}
+    </ul>
+
+    <h1> Filtros</h1>
+
+    <p> {{task | default('No hay Tarea')}}</p>
+
+    {%if task | default('No hay tarea') == 'Josue' %}
+        <p>Tenemos Data</p>
+    {%endif%}
+
+    <!--Comentarios-->
+     {#if task | default('No hay tarea') == 'Josue' #}
+        <!--<p>Tenemos Data</p>-->
+    {#endif#} 
+
+    <p> {{ 5.1324 | int}}</p>
+    <p> {{ 5.1324 | float}}</p>
+    <p> {{ [1,2,3,4,5,6,7] | min}}</p>
+    <p> {{ [1,2,3,4,5,6,7] | max}}</p>
+    <p> {{ 6.141 | round}}</p>
+    <p> {{ 6.14123 | round(2)}}</p>
+    <p> {{ "Hello Flask" | replace("Hello", "Hi")}}</p>
+    <p> {{ ["Hello Flask", "Hola", "Mundo", 5] | join(" ")}}</p>
+    <p> {{ "Hello Flask" | lower}}</p>
+    <p> {{ "Hello Flask" | upper}}</p>
+    {%filter lower%}
+        Hello World
+    {% endfilter %}
+    <p> {{ "Hello Flask" | reverse}}</p>
+    {% for i in [1,2,3,4,5,6,7,8,9,10] | reverse%}
+            <li>{{ i }}</li>
+    {%endfor%}
+    <p> {{ "Hello Flask" | length}}</p>
+    <p> {{ [1,2,3,4,5,6,7] | length}}</p>
+    {% for i in [1,-2,3,4,-5,6,50,8,22,10] | sort%}
+            <li>{{ i }}</li>
+    {%endfor%}
+    <h3>Sublistas</h3>
+    {% for i in [1,-2,3,4,-5,6,50,8,22,10] | slice(3)%}
+            <li>{{ i }}</li>
+    {%endfor%}
+
+    <h3>Variables</h3>
+    {%set var1 = 'Flask'%}
+    {%set var2 = var1%}
+    {{ var1 }}
+    {{ var2 }}
+
+    <h3>Macros</h3>
+    {%macro suma(v1, v2)%}
+        <p>{{v1}} + {{v2}} = {{v1+v2}}</p>
+    {%endmacro%}
+
+    {{suma(3,4)}}
+
+</body>
+
+</html>

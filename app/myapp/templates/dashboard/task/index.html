@@ -1,0 +1,17 @@
+<!--Todas las paginas de usuario que van a pertenercer al dashbord van a heredar de la plantilla maestra del dashboard-->
+{% extends "dashboard/master.html"%}
+
+{% block title%} Index task {%endblock%}
+
+{% block content%} 
+
+    <ul>
+        {% for t in tasks %}
+        <li>{{ t }}</li>
+        {#<li><a href="/tasks/update/{{loop.index0}}"> Edit </a></li> Dentro del loop va obteniendo el index de cada iteracion#}
+        <li><a href="{{ url_for('tasks.update',id=loop.index0)}}"> Edit </a></li> {#Task es el nombre definido en el BluePrint del controller#}
+        <li><a href="{{ url_for('tasks.delete',id=loop.index0)}}"> Delete </a></li> {#Task es el nombre definido en el BluePrint del controller#}
+        {% endfor %}
+    </ul>
+
+{%endblock%}
