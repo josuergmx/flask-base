@@ -11,7 +11,7 @@ https://ed.team/blog/las-7-mejores-extensiones-para-comenzar-con-vscode
 -- Instalar un virtual environment con venv
 pip3 install virtualenv
 
-python3 -m /path/to/new/virtual/environment
+python3 -m venv /path/to/new/virtual/environment
 
 --Activacion del virtual environment
 Linux y Mac:  source nombreAsignado/bin/activate
@@ -99,9 +99,24 @@ https://docs.github.com/en/authentication/troubleshooting-ssh/error-permission-d
 --Crear una cuenta en github e ir a https://github.com/settings/keys
 agregar la llave publica que se genero previamente
 
-
+--Creacion del repositorio
 git init
+git add README.md
+git commit -m "Primera version"
+git branch -M main
+git remote add origin git@github.com:josuergmx/flask-base.git
+git push -u origin main
+git tag
+git tag v0.1
+git push --tags
 
+_usar repositorio existente por primera vez
+git remote add origin git@github.com:josuergmx/flask-base.git
+git branch -M main
+git push -u origin main
+git tag
+git tag v0.1
+git push --tags
 
 -- Subir cambios al repositorio de github
 git add .
@@ -115,3 +130,45 @@ git push --tags
 
 --Iniciar la aplicacion de flask
 python3 run.py
+
+--Instalacion de base de datos
+
+https://flask-sqlalchemy.readthedocs.io/en/3.1.x/quickstart/#installation
+pip3 install -U Flask-SQLAlchemy
+
+--Para postgres
+pip3 install psycopg2
+pip3 install psycopg2-binary
+
+--Para mysql
+pip3 install pymysql
+
+--Crearla base de datos y el usuario con pgadmin
+
+--Instalar flask migrate
+pip3 install Flask-Migrate
+--Si da error instalar 
+pip3 install cryptography
+
+--IMPORTANTE: renombrar el archivo run.py por app.py
+
+--Se debe borrar las tablas desde pgAdmin
+
+-- Comando para las migraciones
+flask db
+
+--Si da error: No such name db
+Windows: set FLASK_APP=app/myapp/__init__.py
+Linux: export FLASK_APP=app/myapp/__init__.py
+
+--Probar python -m flask db
+
+-- Para comenzar a usar las migraciones se requieren comandos:
+flask db init
+flask db migrate -m "Migracion Inicial Tabla tasks"
+flask db upgrade
+
+
+flask db history
+flask db show
+flask db downgrade   -- deshace la ultima migracion  
