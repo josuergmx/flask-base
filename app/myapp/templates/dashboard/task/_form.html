@@ -1,0 +1,32 @@
+
+{{ form.name.label}}
+{{ form.name }}
+
+{% if form.name.errors %}
+    <ul>
+        {% for error in form.name.errors %}
+        <li>
+            Name - {{ error }}
+        </li>
+        {% endfor %}
+    </ul>
+{%endif%}
+
+{% if id:%}
+    {{ form.file.label}}
+    {{ form.file }}
+{% endif%}
+
+{{ form.csrf_token }}
+
+<button type="submit"> Enviar </button>
+
+<!--{% if form.errors %}
+    <ul>
+        {% for error in form.errors %}
+        <li>
+            Name - {{ error }}
+        </li>
+        {% endfor %}
+    </ul>
+{%endif%}-->
