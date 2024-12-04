@@ -4,6 +4,7 @@ from myapp.tasks import operationsCRUD
 from myapp.tasks import forms
 from myapp import config
 from werkzeug.utils import secure_filename
+from myapp.documents import operationsCRUD as operationsCRUD_Doc
 
 
 taskRoute = Blueprint('tasks', __name__, url_prefix='/tasks')
@@ -48,16 +49,18 @@ def update(id:int):
         form.name.data = task.name
     
     if form.validate_on_submit():
-        operationsCRUD.update(id, form.name.data)
         
-        print(form.file.data)
-        print(form.file.data.filename)
         f = form.file.data
         if f and config.allowed_extensions_file(form.file.data.filename):
             
             filename = secure_filename(f.filename)
-            f.save(os.path.join(current_app.instance_path, current_app.config['UPLOAD_FOLDER'], filename))
+            ext = filename.lower().rsplit('.',1)[1]
+            document = operationsCRUD_Doc.create(filename, ext,f) #se pasa el nombre del archivo, la extension y los datos del archivo
+            
+            #Aqui se hace el guardado de la llave foranea en la table de Task, para que quede relacionada con el documento guardado
+            print("------- Documentid: ",document.id)
+            operationsCRUD.update(id, form.name.data, document.id)
         
         return redirect(url_for('tasks.index'))
         
-    return render_template('dashboard/task/update.html', form=form, id=id)
+    return render_template('dashboard/task/update.html', form=form, id=id, task=task)

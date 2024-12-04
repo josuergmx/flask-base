@@ -164,7 +164,7 @@ Linux: export FLASK_APP=app/myapp/__init__.py
 --Probar python -m flask db
 
 -- Para comenzar a usar las migraciones se requieren comandos:
-flask db init
+flask db init  --Solo se realiza la primera vez
 flask db migrate -m "Migracion Inicial Tabla tasks"
 flask db upgrade
 
@@ -172,3 +172,7 @@ flask db upgrade
 flask db history
 flask db show
 flask db downgrade   -- deshace la ultima migracion  
+
+--Manejo de Formularios
+pip3 install Flask-WTF
+https://wtforms.readthedocs.io/en/3.1.x/

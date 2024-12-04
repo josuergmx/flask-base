@@ -9,4 +9,11 @@
         {% include 'dashboard/task/_form.html' %}
     </form>
 
+    {% if task.document: %}
+        {% with document=task.document %}
+        <h3>Documento: </h3>
+            {%include 'dashboard/document/_detail.html' %}
+        {%endwith%}
+    {%endif%}
+
 {%endblock%}
