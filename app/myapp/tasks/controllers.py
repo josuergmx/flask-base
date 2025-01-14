@@ -24,9 +24,11 @@ def show(id:int):
 
 @taskRoute.route('/delete/<int:id>')
 def delete(id:int):
-   
+    task = operationsCRUD.getById(id,True)
+    
     if id is not None and id is not "":
         operationsCRUD.delete(id)
+        operationsCRUD_Doc.delete(task.document_id)
         return redirect(url_for('tasks.index'))
 
 @taskRoute.route('/create', methods=('GET','POST'))

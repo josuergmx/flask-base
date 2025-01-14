@@ -8,6 +8,7 @@
     <ul>
         {% for t in tasks %}
         <li>{{ t.name }}</li>
+        <li>{{ t.category.name }}</li>
         {#<li><a href="/tasks/update/{{loop.index0}}"> Edit </a></li> Dentro del loop va obteniendo el index de cada iteracion#}
         <li><a href="{{ url_for('tasks.update',id=t.id)}}"> Edit </a></li> {#Task es el nombre definido en el BluePrint del controller#}
         <li><a href="{{ url_for('tasks.delete',id=t.id)}}"> Delete </a></li> {#Task es el nombre definido en el BluePrint del controller#}

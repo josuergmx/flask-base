@@ -10,9 +10,7 @@ def getById(id: int, show404=False):
     if show404:
         task = models.Task.query.get_or_404(id)
     else:
-        task = db.session.query(models.Task).get(id)
-       
-        
+        task = db.session.query(models.Task).get(id)   
     #task = models.Task.query.get_or_404(id) 
     return task
     

@@ -176,3 +176,4 @@ flask db downgrade   -- deshace la ultima migracion
 --Manejo de Formularios
 pip3 install Flask-WTF
 https://wtforms.readthedocs.io/en/3.1.x/
+.
