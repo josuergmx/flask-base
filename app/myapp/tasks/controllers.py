@@ -2,6 +2,7 @@ import os
 from flask import Blueprint, render_template, request, redirect, url_for, current_app
 from myapp.tasks import operationsCRUD
 from myapp.tasks import forms
+from myapp.tasks import models
 from myapp import config
 from werkzeug.utils import secure_filename
 from myapp.documents import operationsCRUD as operationsCRUD_Doc
@@ -35,9 +36,10 @@ def delete(id:int):
 def create():
    
     form = forms.Task()
+    form.category.choices = [(c.id, c.name) for c in models.Category.query.all()]
     #se aplican las validaciones
     if form.validate_on_submit():
-       operationsCRUD.create(form.name.data)
+       operationsCRUD.create(form.name.data, form.category.data)
        
     return render_template('dashboard/task/create.html', form=form)
 
@@ -46,12 +48,23 @@ def update(id:int):
     
     task = operationsCRUD.getById(id, True)
     form = forms.Task()
+    form.category.choices = [(c.id, c.name) for c in models.Category.query.all()]
+    
+    
+    #Para el llenado del formulario de tagsTask
+    formTag = forms.TaskTagAdd()
+    formTag.tag.choices = [(t.id, t.name) for t in models.Tag.query.all()]
+    
+    formTagRemove = forms.TaskTagRemove()
+    
     
     if request.method == 'GET':
-        form.name.data = task.name
-    
+        form.name.data = task.name  
+        print(f"\n::::::::::::: {task.category_id}")
+        form.category.default = task.category_id
+            
     if form.validate_on_submit():
-        
+        operationsCRUD.update(id,form.name.data, form.category.data, None)
         f = form.file.data
         if f and config.allowed_extensions_file(form.file.data.filename):
             
@@ -61,8 +74,29 @@ def update(id:int):
             
             #Aqui se hace el guardado de la llave foranea en la table de Task, para que quede relacionada con el documento guardado
             print("------- Documentid: ",document.id)
-            operationsCRUD.update(id, form.name.data, document.id)
+            operationsCRUD.update(id, form.name.data, form.category.data, document.id)
         
         return redirect(url_for('tasks.index'))
         
-    return render_template('dashboard/task/update.html', form=form, id=id, task=task)
+    return render_template('dashboard/task/update.html', form=form, formTag=formTag, id=id, task=task, formTagRemove=formTagRemove)
+
+#Tags
+@taskRoute.route('/<int:id>/tag/add', methods=['POST'])
+def tagAdd(id:int):
+    formTag = forms.TaskTagAdd()
+    formTag.tag.choices = [(t.id, t.name) for t in models.Tag.query.all()]
+    
+    if(formTag.validate_on_submit()):
+        operationsCRUD.addTag(id, formTag.tag.data)
+    
+    return redirect(url_for('tasks.update', id=id))
+
+@taskRoute.route('/<int:id>/tag/remove', methods=['POST'])
+def tagRemove(id:int):
+    formTag = forms.TaskTagRemove()
+    
+    if(formTag.validate_on_submit()):
+        operationsCRUD.removeTag(id, formTag.tag.data)
+    
+    return redirect(url_for('tasks.update', id=id))
+    
